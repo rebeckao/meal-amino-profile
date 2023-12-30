@@ -55,7 +55,7 @@ const Index = () => {
   useEffect(() => {
     // When the component mounts, transform the imported data to the new structure
     const transformedFoods = foodData.map(item => ({
-      description: item.name,
+  description: item.description,
       fdcId: Math.random().toString(36).substr(2, 9),
       foodNutrients: item.foodNutrients.map((nutrient) => {
         if (aminoAcidsNames.includes(nutrient.name) && nutrient.unitName === 'g') {
@@ -102,10 +102,17 @@ const filteredFoods = searchQuery
     )
   : foods;
 
-  const combinedProfile = foods.reduce(
-    (acc, food) => food.profile.map((amt, index) => (acc[index] || 0) + amt),
-    []
-  );
+  const combinedProfile = foods.reduce((acc, food) => {
+    food.foodNutrients.forEach((nutrient) => {
+      const existingNutrient = acc.find((n) => n.name === nutrient.name);
+      if (existingNutrient) {
+        existingNutrient.amount += nutrient.amount;
+      } else {
+        acc.push({...nutrient});
+      }
+    });
+    return acc;
+  }, []);
 
   return (
     <Container maxW="container.xl" py={8}>
