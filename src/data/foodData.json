@@ -1,4 +1,20 @@
 [
-  { "name": "Apple", "profile": [5, 15, 20] },
-  { "name": "Banana", "profile": [4, 25, 10] }
+  {
+    "description": "Apple",
+    "fdcId": 1,
+    "foodNutrients": [
+      { "name": "Protein", "amount": 5, "unitName": "g" },
+      { "name": "Fat", "amount": 15, "unitName": "g" },
+      { "name": "Carbohydrate", "amount": 20, "unitName": "g" }
+    ]
+  },
+  {
+    "description": "Banana",
+    "fdcId": 2,
+    "foodNutrients": [
+      { "name": "Protein", "amount": 4, "unitName": "g" },
+      { "name": "Fat", "amount": 25, "unitName": "g" },
+      { "name": "Carbohydrate", "amount": 10, "unitName": "g" }
+    ]
+  }
 ]

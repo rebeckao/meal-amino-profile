@@ -28,24 +28,38 @@ const Index = () => {
   // ... rest of the component code
 
   useEffect(() => {
-  // When the component mounts, set the state with the imported data
-  setFoods(foodData);
-}, []);
+    // When the component mounts, transform the imported data to the new structure
+    const transformedFoods = foodData.map(item => ({
+      description: item.name,
+      fdcId: Math.random().toString(36).substr(2, 9), // Generate a random fdcId
+      foodNutrients: item.profile.map((amount, index) => ({
+        name: `Amino Acid ${index + 1}`,
+        amount: amount,
+        unitName: 'g',
+      })),
+    }));
+    setFoods(transformedFoods);
+  }, []);
 
   
   const [foodName, setFoodName] = useState('');
   const [aminoAcidProfile, setAminoAcidProfile] = useState('');
 
   const handleAddFood = () => {
-    if (foodName && aminoAcidProfile) {
-      setFoods([
-        ...foods,
-        { name: foodName, profile: aminoAcidProfile.split(',').map(Number) },
-      ]);
-      setFoodName('');
-      setAminoAcidProfile('');
-    }
-  };
+  if (foodName && aminoAcidProfile) {
+    const nutrients = aminoAcidProfile.split(',').map((amino, index) => {
+      const amount = parseFloat(amino.trim());
+      return { name: `Amino Acid ${index + 1}`, amount: amount, unitName: 'g' };
+    });
+
+    setFoods([
+      ...foods,
+      { description: foodName, fdcId: Math.random().toString(36).substr(2, 9), foodNutrients: nutrients },
+    ]);
+    setFoodName('');
+    setAminoAcidProfile('');
+  }
+};
 
   const handleRemoveFood = (index) => {
     setFoods(foods.filter((_, i) => i !== index));
@@ -92,8 +106,8 @@ const Index = () => {
           <Tbody>
             {foods.map((food, index) => (
               <Tr key={index}>
-                <Td>{food.name}</Td>
-                <Td>{food.profile.join(', ')}</Td>
+                <Td>{food.description}</Td>
+                <Td>{food.foodNutrients.map(nutrient => `${nutrient.name}: ${nutrient.amount} ${nutrient.unitName}`).join(', ')}</Td>
                 <Td>
                   <Button
                     leftIcon={<FaTrash />}
