@@ -23,6 +23,28 @@ import { FaPlus, FaTrash } from 'react-icons/fa';
 // Import data from the JSON file
 import foodData from '../data/foodData.json';
 
+const aminoAcidsNames = [
+  'Tryptophan',
+  'Threonine',
+  'Isoleucine',
+  'Leucine',
+  'Lysine',
+  'Methionine',
+  'Phenylalanine',
+  'Tyrosine',
+  'Valine',
+  'Arginine',
+  'Histidine',
+  'Alanine',
+  'Aspartic acid',
+  'Glutamic acid',
+  'Glycine',
+  'Proline',
+  'Serine',
+  'Hydroxyproline',
+  'Cysteine'
+];
+
 const Index = () => {
   const [foods, setFoods] = useState([]);
   // ... rest of the component code
@@ -31,12 +53,14 @@ const Index = () => {
     // When the component mounts, transform the imported data to the new structure
     const transformedFoods = foodData.map(item => ({
       description: item.name,
-      fdcId: Math.random().toString(36).substr(2, 9), // Generate a random fdcId
-      foodNutrients: item.profile.map((amount, index) => ({
-        name: `Amino Acid ${index + 1}`,
-        amount: amount,
-        unitName: 'g',
-      })),
+      fdcId: Math.random().toString(36).substr(2, 9),
+      foodNutrients: item.profile.map((amount, index) => {
+        const nutrientName = `Amino Acid ${index + 1}`;
+        if (aminoAcidsNames.includes(nutrientName)) {
+          return { name: nutrientName, amount: amount, unitName: 'g' };
+        }
+        return null;
+      }).filter(nutrient => nutrient !== null)
     }));
     setFoods(transformedFoods);
   }, []);
@@ -48,9 +72,10 @@ const Index = () => {
   const handleAddFood = () => {
   if (foodName && aminoAcidProfile) {
     const nutrients = aminoAcidProfile.split(',').map((amino, index) => {
-      const amount = parseFloat(amino.trim());
-      return { name: `Amino Acid ${index + 1}`, amount: amount, unitName: 'g' };
-    });
+  const [name, amountStr] = amino.trim().split(':');
+  const amount = parseFloat(amountStr.trim());
+  return aminoAcidsNames.includes(name) ? { name, amount, unitName: 'g' } : null;
+}).filter(nutrient => nutrient !== null);
 
     setFoods([
       ...foods,
