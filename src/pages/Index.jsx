@@ -111,8 +111,8 @@ const Index = () => {
     setShowDropdown(false);
   };
 
-const handleRemoveFood = (index) => {
-  setFoods(foods.filter((_, i) => i !== index));
+const handleRemoveFood = (fdcId) => {
+  setFoods(foods.filter((food) => food.fdcId !== fdcId));
 };
 
 const filteredFoods = searchQuery
@@ -122,16 +122,17 @@ const filteredFoods = searchQuery
   : foods;
 
   const combinedProfile = foods.reduce((acc, food) => {
-    food.foodNutrients.forEach((nutrient) => {
-      const existingNutrient = acc.find((n) => n.name === nutrient.name);
-      if (existingNutrient) {
-        existingNutrient.amount += nutrient.amount;
-      } else {
-        acc.push({...nutrient});
-      }
-    });
-    return acc;
-  }, []);
+  const quantity = food.quantity || 1; // Default to 1 if quantity is not specified
+  food.foodNutrients.forEach((nutrient) => {
+    const existingNutrient = acc.find((n) => n.name === nutrient.name);
+    if (existingNutrient) {
+      existingNutrient.amount += nutrient.amount * quantity;
+    } else {
+      acc.push({...nutrient, amount: nutrient.amount * quantity});
+    }
+  });
+  return acc;
+}, []).map((nutrient) => ({ ...nutrient, amount: parseFloat(nutrient.amount.toFixed(2)) })); // Round to two decimal places
 
   return (
     <Container maxW="container.xl" py={8}>
@@ -177,21 +178,35 @@ const filteredFoods = searchQuery
             </Tr>
           </Thead>
           <Tbody>
-            {filteredFoods.map((food, index) => (
-              <Tr key={index}>
-                <Td>{food.description}</Td>
-                <Td>{food.foodNutrients.map(nutrient => `${nutrient.name}: ${nutrient.amount} ${nutrient.unitName}`).join(', ')}</Td>
-                <Td>
-                  <Button
-                    leftIcon={<FaTrash />}
-                    colorScheme="red"
-                    onClick={() => handleRemoveFood(index)}
-                  >
-                    Remove
-                  </Button>
-                </Td>
-              </Tr>
-            ))}
+            {filteredFoods.map((food) => (
+  <Tr key={food.fdcId}>
+    <Td>{food.description}</Td>
+    <Td>
+      {food.foodNutrients.map(nutrient => `${nutrient.name}: ${nutrient.amount} ${nutrient.unitName}`).join(', ')}
+    </Td>
+    <Td>
+      <Input
+        type="number"
+        placeholder="Quantity (g)"
+        value={food.quantity}
+        onChange={(e) => setFoods(foods.map(f => f.fdcId === food.fdcId ? { ...f, quantity: parseFloat(e.target.value) } : f))}
+        size="sm"
+        min={0}
+        max={1000}
+        width="100px"
+      />
+    </Td>
+    <Td>
+      <Button
+        leftIcon={<FaTrash />}
+        colorScheme="red"
+        onClick={() => handleRemoveFood(food.fdcId)}
+      >
+        Remove
+      </Button>
+    </Td>
+  </Tr>
+))}
           </Tbody>
         </Table>
         import AminoAcidBarChart from '../components/AminoAcidBarChart'; // Add this import at the top with the other imports
