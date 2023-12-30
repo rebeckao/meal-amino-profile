@@ -125,13 +125,13 @@ const filteredFoods = searchQuery
   : foods;
 
   const combinedProfile = foods.reduce((acc, food) => {
-  const quantity = food.quantity || 1; // Default to 1 if quantity is not specified
+  const quantity = food.quantity || 100; // Default to 100 if quantity is not specified
   food.foodNutrients.forEach((nutrient) => {
     const existingNutrient = acc.find((n) => n.name === nutrient.name);
     if (existingNutrient) {
-      existingNutrient.amount += nutrient.amount * quantity;
+      existingNutrient.amount += nutrient.amount * (quantity / 100);
     } else {
-      acc.push({...nutrient, amount: nutrient.amount * quantity});
+      acc.push({...nutrient, amount: nutrient.amount * (quantity / 100)});
     }
   });
   return acc;
