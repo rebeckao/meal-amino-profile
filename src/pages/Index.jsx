@@ -45,8 +45,11 @@ const aminoAcidsNames = [
   'Cysteine'
 ];
 
+import { FaSearch } from 'react-icons/fa';
+
 const Index = () => {
   const [foods, setFoods] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   // ... rest of the component code
 
   useEffect(() => {
@@ -85,9 +88,19 @@ const Index = () => {
   }
 };
 
-  const handleRemoveFood = (index) => {
-    setFoods(foods.filter((_, i) => i !== index));
-  };
+  const handleSearchChange = (event) => {
+  setSearchQuery(event.target.value);
+};
+
+const handleRemoveFood = (index) => {
+  setFoods(foods.filter((_, i) => i !== index));
+};
+
+const filteredFoods = searchQuery
+  ? foods.filter((food) =>
+      food.description.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  : foods;
 
   const combinedProfile = foods.reduce(
     (acc, food) => food.profile.map((amt, index) => (acc[index] || 0) + amt),
@@ -98,13 +111,27 @@ const Index = () => {
     <Container maxW="container.xl" py={8}>
       <VStack spacing={6}>
         <Heading>Amino Acid Profile for Meal</Heading>
-        <FormControl>
-          <FormLabel>Food Name</FormLabel>
-          <Input
-            value={foodName}
-            onChange={(e) => setFoodName(e.target.value)}
-          />
-        </FormControl>
+        <FormControl as="form" onSubmit={(e) => e.preventDefault()}>
+  <FormLabel htmlFor="search">Search for a Food</FormLabel>
+  <Flex>
+    <Input
+      id="search"
+      value={searchQuery}
+      onChange={handleSearchChange}
+      placeholder="Type to search..."
+    />
+    <Button type="submit" ml={2} leftIcon={<FaSearch />}>
+      Search
+    </Button>
+  </Flex>
+</FormControl>
+<FormControl mt={4}>
+  <FormLabel>Food Name</FormLabel>
+  <Input
+    value={foodName}
+    onChange={(e) => setFoodName(e.target.value)}
+  />
+</FormControl>
         <FormControl>
           <FormLabel>Amino Acid Profile (comma-separated values)</FormLabel>
           <Input
@@ -128,7 +155,7 @@ const Index = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {foods.map((food, index) => (
+            {filteredFoods.map((food, index) => (
               <Tr key={index}>
                 <Td>{food.description}</Td>
                 <Td>{food.foodNutrients.map(nutrient => `${nutrient.name}: ${nutrient.amount} ${nutrient.unitName}`).join(', ')}</Td>
