@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useOutsideClick } from '@chakra-ui/react';
 import {
   Box,
   Button,
@@ -50,6 +51,8 @@ import { FaSearch } from 'react-icons/fa';
 const Index = () => {
   const [foods, setFoods] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showDropdown, setShowDropdown] = useState(false);
+  const searchRef = useRef();
   // ... rest of the component code
 
   useEffect(() => {
@@ -88,9 +91,24 @@ const Index = () => {
   }
 };
 
+  useOutsideClick({
+    ref: searchRef,
+    handler: () => setShowDropdown(false),
+  });
+
   const handleSearchChange = (event) => {
-  setSearchQuery(event.target.value);
-};
+    setSearchQuery(event.target.value);
+    if (event.target.value === '') {
+      setShowDropdown(true);
+    } else {
+      setShowDropdown(false);
+    }
+  };
+
+  const handleDropdownClick = (foodName) => {
+    setSearchQuery(foodName);
+    setShowDropdown(false);
+  };
 
 const handleRemoveFood = (index) => {
   setFoods(foods.filter((_, i) => i !== index));
@@ -127,9 +145,25 @@ const filteredFoods = searchQuery
       onChange={handleSearchChange}
       placeholder="Type to search..."
     />
-    <Button type="submit" ml={2} leftIcon={<FaSearch />}>
+    <Button type="submit" ml={2} leftIcon={<FaSearch />} onClick={() => setShowDropdown(false)}>
       Search
     </Button>
+    {showDropdown && (
+      <Stack spacing={1} mt={2} w="100%" borderWidth="1px" borderRadius="lg" p={2} bg="white" position="absolute">
+        {foods.map((food, index) => (
+          <Box
+            key={index}
+            p={2}
+            borderRadius="md"
+            _hover={{ bg: 'gray.100' }}
+            onClick={() => handleDropdownClick(food.description)}
+            cursor="pointer"
+          >
+            {food.description}
+          </Box>
+        ))}
+      </Stack>
+    )}
   </Flex>
 </FormControl>
 
