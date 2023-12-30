@@ -20,34 +20,17 @@ import {
 } from '@chakra-ui/react';
 import { FaPlus, FaTrash } from 'react-icons/fa';
 
-// Mock function to simulate fetching data from an external API
-const fetchFoodsFromAPI = () => {
-  return new Promise((resolve) => {
-    // Simulate network request by delaying the resolution of the promise
-    setTimeout(() => {
-      // Static data to simulate API response
-      const mockAPIData = [
-        { name: 'Apple', profile: [5, 15, 20] },
-        { name: 'Banana', profile: [4, 25, 10] },
-      ];
-      resolve(mockAPIData);
-    }, 1000);
-    // Note: In a real-world scenario, you would make an HTTP request here
-    // using the fetch API or libraries like axios to get data from the API.
-  });
-};
+// Import data from the JSON file
+import foodData from '../data/foodData.json';
 
 const Index = () => {
   const [foods, setFoods] = useState([]);
   // ... rest of the component code
 
   useEffect(() => {
-    // When the component mounts, fetch the food data
-    fetchFoodsFromAPI().then((data) => {
-      // Update the state with the fetched data
-      setFoods(data);
-    });
-  }, []);
+  // When the component mounts, set the state with the imported data
+  setFoods(foodData);
+}, []);
 
   
   const [foodName, setFoodName] = useState('');
