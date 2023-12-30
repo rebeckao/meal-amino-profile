@@ -54,10 +54,9 @@ const Index = () => {
     const transformedFoods = foodData.map(item => ({
       description: item.name,
       fdcId: Math.random().toString(36).substr(2, 9),
-      foodNutrients: item.profile.map((amount, index) => {
-        const nutrientName = `Amino Acid ${index + 1}`;
-        if (aminoAcidsNames.includes(nutrientName)) {
-          return { name: nutrientName, amount: amount, unitName: 'g' };
+      foodNutrients: item.foodNutrients.map((nutrient) => {
+        if (aminoAcidsNames.includes(nutrient.name) && nutrient.unitName === 'g') {
+          return { name: nutrient.name, amount: nutrient.amount, unitName: 'g' };
         }
         return null;
       }).filter(nutrient => nutrient !== null)
