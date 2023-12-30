@@ -1,20 +1,47 @@
 [
   {
-    "description": "Apple",
+    "description": "Broccoli",
     "fdcId": 1,
     "foodNutrients": [
-      { "name": "Protein", "amount": 5, "unitName": "g" },
-      { "name": "Fat", "amount": 15, "unitName": "g" },
-      { "name": "Carbohydrate", "amount": 20, "unitName": "g" }
+      { "name": "Tryptophan", "amount": 1.2, "unitName": "g" },
+      { "name": "Threonine", "amount": 0.8, "unitName": "g" },
+      { "name": "Isoleucine", "amount": 0.9, "unitName": "g" }
     ]
   },
   {
-    "description": "Banana",
+    "description": "Chicken Breast",
     "fdcId": 2,
     "foodNutrients": [
-      { "name": "Protein", "amount": 4, "unitName": "g" },
-      { "name": "Fat", "amount": 25, "unitName": "g" },
-      { "name": "Carbohydrate", "amount": 10, "unitName": "g" }
+      { "name": "Leucine", "amount": 2.1, "unitName": "g" },
+      { "name": "Lysine", "amount": 3.0, "unitName": "g" },
+      { "name": "Methionine", "amount": 1.1, "unitName": "g" }
+    ]
+  },
+  {
+    "description": "Almonds",
+    "fdcId": 3,
+    "foodNutrients": [
+      { "name": "Phenylalanine", "amount": 2.5, "unitName": "g" },
+      { "name": "Tyrosine", "amount": 0.7, "unitName": "g" },
+      { "name": "Valine", "amount": 1.6, "unitName": "g" }
+    ]
+  },
+  {
+    "description": "Salmon",
+    "fdcId": 4,
+    "foodNutrients": [
+      { "name": "Arginine", "amount": 2.3, "unitName": "g" },
+      { "name": "Histidine", "amount": 1.4, "unitName": "g" },
+      { "name": "Alanine", "amount": 1.9, "unitName": "g" }
+    ]
+  },
+  {
+    "description": "Quinoa",
+    "fdcId": 5,
+    "foodNutrients": [
+      { "name": "Aspartic acid", "amount": 1.7, "unitName": "g" },
+      { "name": "Glutamic acid", "amount": 3.1, "unitName": "g" },
+      { "name": "Glycine", "amount": 0.5, "unitName": "g" }
     ]
   }
 ]
