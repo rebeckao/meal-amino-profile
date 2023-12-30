@@ -47,6 +47,7 @@ const aminoAcidsNames = [
 ];
 
 import { FaSearch } from 'react-icons/fa';
+import AminoAcidBarChart from '../components/AminoAcidBarChart'; // Moved import statement to the top
 
 const Index = () => {
   const [foods, setFoods] = useState([]);
@@ -193,15 +194,17 @@ const filteredFoods = searchQuery
             ))}
           </Tbody>
         </Table>
+        import AminoAcidBarChart from '../components/AminoAcidBarChart'; // Add this import at the top with the other imports
+
+// ... rest of the component code stays the same
+
         {foods.length > 0 && (
           <Flex width="full" justify="center" p={4}>
             <Stack>
               <Text fontSize="xl" fontWeight="bold">
                 Combined Amino Acid Profile
               </Text>
-              <Box borderWidth="1px" borderRadius="lg" p={4}>
-                {combinedProfile.join(', ')}
-              </Box>
+              <AminoAcidBarChart profile={combinedProfile} />
             </Stack>
           </Flex>
         )}
