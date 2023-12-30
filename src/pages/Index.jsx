@@ -125,27 +125,7 @@ const filteredFoods = searchQuery
     </Button>
   </Flex>
 </FormControl>
-<FormControl mt={4}>
-  <FormLabel>Food Name</FormLabel>
-  <Input
-    value={foodName}
-    onChange={(e) => setFoodName(e.target.value)}
-  />
-</FormControl>
-        <FormControl>
-          <FormLabel>Amino Acid Profile (comma-separated values)</FormLabel>
-          <Input
-            value={aminoAcidProfile}
-            onChange={(e) => setAminoAcidProfile(e.target.value)}
-          />
-        </FormControl>
-        <Button
-          leftIcon={<FaPlus />}
-          colorScheme="teal"
-          onClick={handleAddFood}
-        >
-          Add Food
-        </Button>
+
         <Table variant="simple">
           <Thead>
             <Tr>
