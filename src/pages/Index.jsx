@@ -57,21 +57,8 @@ const Index = () => {
   // ... rest of the component code
 
   useEffect(() => {
-    // When the component mounts, transform the imported data to the new structure
-    const transformedFoods = foodData.map(item => {
-      return {
-        description: item.description,
-        fdcId: Math.random().toString(36).substr(2, 9),
-        foodNutrients: item.foodNutrients.map((nutrient) => {
-          if (aminoAcidsNames.includes(nutrient.name) && nutrient.unitName === 'g') {
-            return { name: nutrient.name, amount: nutrient.amount, unitName: 'g' };
-          }
-          return null;
-        }).filter(nutrient => nutrient !== null),
-        quantity: 100 // Set default quantity to 100g
-      };
-    });
-    setFoods(transformedFoods);
+    // Foods are initialized to an empty array, no initial data is set
+    setFoods([]);
   }, []);
 
   
