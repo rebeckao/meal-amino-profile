@@ -89,17 +89,17 @@ const Index = () => {
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
-    if (event.target.value === '') {
-      setShowDropdown(true);
-    } else {
-      setShowDropdown(false);
-    }
+    setShowDropdown(event.target.value !== '');
   };
 
-  const handleDropdownClick = (foodName) => {
-    setSearchQuery(foodName);
-    setShowDropdown(false);
-  };
+  const handleDropdownClick = (foodDescription) => {
+  const selectedFood = foodData.find((food) => food.description === foodDescription);
+  if (selectedFood) {
+    setFoods([...foods, { ...selectedFood, quantity: 100 }]); // Added default quantity of 100g
+  }
+  setSearchQuery('');
+  setShowDropdown(false);
+};
 
 const handleRemoveFood = (fdcId) => {
   setFoods(foods.filter((food) => food.fdcId !== fdcId));
