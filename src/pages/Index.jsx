@@ -106,11 +106,7 @@ const handleRemoveFood = (fdcId) => {
   setFoods(foods.filter((food) => food.fdcId !== fdcId));
 };
 
-const filteredFoods = searchQuery
-  ? foods.filter((food) =>
-      food.description.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  : foods;
+const filteredFoods = foods;
 
   const combinedProfile = foods.reduce((acc, food) => {
   const quantity = food.quantity || 100; // Default to 100 if quantity is not specified
