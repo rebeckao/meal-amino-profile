@@ -140,22 +140,24 @@ const filteredFoods = searchQuery
     <Button type="submit" ml={2} leftIcon={<FaSearch />} onClick={() => setShowDropdown(false)}>
       Search
     </Button>
-    {showDropdown && (
-      <Stack spacing={1} mt={2} w="100%" borderWidth="1px" borderRadius="lg" p={2} bg="white" position="absolute">
-        {foods.map((food, index) => (
-          <Box
-            key={index}
-            p={2}
-            borderRadius="md"
-            _hover={{ bg: 'gray.100' }}
-            onClick={() => handleDropdownClick(food.description)}
-            cursor="pointer"
-          >
-            {food.description}
-          </Box>
-        ))}
-      </Stack>
-    )}
+    {showDropdown && searchQuery && (
+  <Stack spacing={1} mt={2} w="100%" borderWidth="1px" borderRadius="lg" p={2} bg="white" position="absolute">
+    {foodData.filter((food) =>
+      food.description.toLowerCase().includes(searchQuery.toLowerCase())
+    ).map((food, index) => (
+      <Box
+        key={index}
+        p={2}
+        borderRadius="md"
+        _hover={{ bg: 'gray.100' }}
+        onClick={() => handleDropdownClick(food.description)}
+        cursor="pointer"
+      >
+        {food.description}
+      </Box>
+    ))}
+  </Stack>
+)}
   </Flex>
 </FormControl>
 
