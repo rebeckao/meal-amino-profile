@@ -130,16 +130,35 @@ const filteredFoods = foods;
         <Heading>Amino Acid Profile for Meal</Heading>
         <FormControl as="form" onSubmit={(e) => e.preventDefault()}>
   <FormLabel htmlFor="search">Search for a Food</FormLabel>
-  <Flex>
+  <Flex ref={searchRef}>
     <Input
       id="search"
       value={searchQuery}
       onChange={handleSearchChange}
       placeholder="Type to search..."
+      onClick={() => setShowDropdown(true)}
     />
-    <Button type="submit" ml={2} leftIcon={<FaSearch />} onClick={() => setShowDropdown(false)}>
+    <Button type="submit" ml={2} leftIcon={<FaSearch />}>
       Search
     </Button>
+    {showDropdown && searchQuery && (
+      <Stack spacing={1} mt="10" w="100%" borderWidth="1px" borderRadius="lg" p={2} bg="white" position="absolute" zIndex="dropdown">
+        {foodData.filter((food) =>
+          food.description.toLowerCase().includes(searchQuery.toLowerCase())
+        ).map((food, index) => (
+          <Box
+            key={index}
+            p={2}
+            borderRadius="md"
+            _hover={{ bg: 'gray.100' }}
+            onClick={() => handleDropdownClick(food.description)}
+            cursor="pointer"
+          >
+            {food.description}
+          </Box>
+        ))}
+      </Stack>
+    )}
     {showDropdown && searchQuery && (
   <Stack spacing={1} mt="10" w="100%" borderWidth="1px" borderRadius="lg" p={2} bg="white" position="absolute" zIndex="dropdown">
     {foodData.filter((food) =>
