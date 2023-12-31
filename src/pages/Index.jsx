@@ -95,7 +95,9 @@ const Index = () => {
   const handleDropdownClick = (foodDescription) => {
   const selectedFood = foodData.find((food) => food.description === foodDescription);
   if (selectedFood) {
-    setFoods([...foods, selectedFood]);
+    // Ensure the food item contains a default quantity property for consistent data structure
+    const foodWithQuantity = { ...selectedFood, quantity: 100 }; // Default quantity set to 100
+    setFoods([...foods, foodWithQuantity]);
   }
   setSearchQuery('');
   setShowDropdown(false);
