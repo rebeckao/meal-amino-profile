@@ -93,13 +93,11 @@ const Index = () => {
   };
 
   const handleDropdownClick = (foodDescription) => {
-    console.log('Dropdown food selected:', foodDescription);
-  const selectedFood = foodData.find((food) => food.description.toLowerCase() === foodDescription.toLowerCase());
+    const selectedFood = foodData.find((food) => food.description.toLowerCase() === foodDescription.toLowerCase());
   if (selectedFood) {
     const foodWithQuantity = { ...selectedFood, quantity: 100 }; // Default quantity set to 100
     const newFoods = [...foods, foodWithQuantity];
     setFoods(newFoods);
-    console.log('Added foods:', newFoods.map(food => food.description)); // Console log the names of all added foods
   }
   setSearchQuery('');
   setShowDropdown(false);
