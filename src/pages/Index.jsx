@@ -141,7 +141,7 @@ const filteredFoods = searchQuery
       Search
     </Button>
     {showDropdown && searchQuery && (
-  <Stack spacing={1} mt={2} w="100%" borderWidth="1px" borderRadius="lg" p={2} bg="white" position="absolute">
+  <Stack spacing={1} mt="10" w="100%" borderWidth="1px" borderRadius="lg" p={2} bg="white" position="absolute" zIndex="dropdown">
     {foodData.filter((food) =>
       food.description.toLowerCase().includes(searchQuery.toLowerCase())
     ).map((food, index) => (
