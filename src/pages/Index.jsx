@@ -93,6 +93,7 @@ const Index = () => {
   };
 
   const handleDropdownClick = (foodDescription) => {
+    console.log('Dropdown food selected:', foodDescription);
   const selectedFood = foodData.find((food) => food.description.toLowerCase() === foodDescription.toLowerCase());
   if (selectedFood) {
     const foodWithQuantity = { ...selectedFood, quantity: 100 }; // Default quantity set to 100
