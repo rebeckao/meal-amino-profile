@@ -13,7 +13,7 @@ const AminoAcidBarChart = ({ profile, optimalProportions }) => {
             <Text fontSize="sm" fontWeight="bold">
               {nutrient.name} ({nutrient.amount}g)
             </Text>
-            <Progress value={(nutrient.amount / maxAmount) * 100} size="sm" colorScheme="green" />
+            <Progress value={(nutrient.amount / maxAmount) * 100} size="sm" colorScheme="yellow" />
             {(() => {
               // Calculate the scaling factor based on the meal's amino acid profile
               const scalingFactor = Math.min(
@@ -30,7 +30,7 @@ const AminoAcidBarChart = ({ profile, optimalProportions }) => {
               const scaledOptimalValue = optimalValue * scalingFactor;
               // Ensure the scaled optimal value does not exceed the nutrient amount
               const displayedOptimalValue = Math.min(scaledOptimalValue, nutrient.amount);
-              return <Progress value={(displayedOptimalValue / maxAmount) * 100} size="sm" colorScheme="yellow" />;
+              return <Progress value={(displayedOptimalValue / maxAmount) * 100} size="sm" colorScheme="green" />;
             })()}
           </Box>
         ))}
