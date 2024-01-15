@@ -14,8 +14,11 @@ const AminoAcidBarChart = ({ profile, optimalProportions }) => {
               {nutrient.name} ({nutrient.amount}g)
             </Text>
             <Progress value={(nutrient.amount / maxAmount) * 100} size="sm" colorScheme="green" />
-            const optimalValue = optimalProportions[nutrient.name] || 0; const maxOptimalValue = Math.max(...Object.values(optimalProportions));
-            <Progress value={(optimalValue / maxOptimalValue) * 100} size="sm" colorScheme="yellow" />
+            {(() => {
+              const optimalValue = optimalProportions[nutrient.name] || 0;
+              const maxOptimalValue = Math.max(...Object.values(optimalProportions));
+              return <Progress value={(optimalValue / maxOptimalValue) * 100} size="sm" colorScheme="yellow" />;
+            })()}
           </Box>
         ))}
       </Stack>
