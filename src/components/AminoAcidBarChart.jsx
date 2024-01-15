@@ -15,9 +15,22 @@ const AminoAcidBarChart = ({ profile, optimalProportions }) => {
             </Text>
             <Progress value={(nutrient.amount / maxAmount) * 100} size="sm" colorScheme="green" />
             {(() => {
+              // Calculate the scaling factor based on the meal's amino acid profile
+              const scalingFactor = Math.min(
+                ...profile
+                  .map((n) => {
+                    const optimalValueForN = optimalProportions[n.name] || 0;
+                    return n.amount / optimalValueForN;
+                  })
+                  .filter((factor) => !isNaN(factor)),
+              );
+
+              // Calculate the scaled optimal value for this nutrient
               const optimalValue = optimalProportions[nutrient.name] || 0;
-              const maxOptimalValue = Math.max(...Object.values(optimalProportions));
-              return <Progress value={(optimalValue / maxOptimalValue) * 100} size="sm" colorScheme="yellow" />;
+              const scaledOptimalValue = optimalValue * scalingFactor;
+              // Ensure the scaled optimal value does not exceed the nutrient amount
+              const displayedOptimalValue = Math.min(scaledOptimalValue, nutrient.amount);
+              return <Progress value={(displayedOptimalValue / maxAmount) * 100} size="sm" colorScheme="yellow" />;
             })()}
           </Box>
         ))}
