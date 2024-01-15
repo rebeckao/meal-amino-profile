@@ -22,7 +22,7 @@ const AminoAcidBarChart = ({ profile, optimalProportions }) => {
                     const optimalValueForN = optimalProportions[n.name] || 0;
                     return n.amount / optimalValueForN;
                   })
-                  .filter((factor) => !isNaN(factor)),
+                  .filter((factor) => !isNaN(factor) && factor !== Infinity),
               );
 
               // Calculate the scaled optimal value for this nutrient
