@@ -33,6 +33,7 @@ const AminoAcidBarChart = ({ profile, optimalProportions }) => {
               const scaledOptimalValue = optimalValue * scalingFactor;
               // Ensure the scaled optimal value does not exceed the nutrient amount
               const displayedOptimalValue = Math.min(scaledOptimalValue, nutrient.amount);
+              console.log(`${nutrient.name}: ${displayedOptimalValue}`);
               return <Progress value={(displayedOptimalValue / maxAmount) * 100} size="sm" colorScheme="green" />;
             })()}
           </Box>
