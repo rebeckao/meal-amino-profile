@@ -181,7 +181,7 @@ const Index = () => {
               <Text fontSize="xl" fontWeight="bold">
                 Combined Amino Acid Profile
               </Text>
-              <AminoAcidBarChart profile={combinedProfile} />
+              <AminoAcidBarChart profile={combinedProfile} optimalProportions={optimalAminoAcidsProportions} />
             </Stack>
           </Flex>
         )}

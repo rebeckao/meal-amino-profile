@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Progress, Stack, Text } from "@chakra-ui/react";
 
-const AminoAcidBarChart = ({ profile }) => {
+const AminoAcidBarChart = ({ profile, optimalProportions }) => {
   // Find the maximum amount for scaling the progress bars
   const maxAmount = Math.max(...profile.map((nutrient) => nutrient.amount));
 
@@ -14,7 +14,8 @@ const AminoAcidBarChart = ({ profile }) => {
               {nutrient.name} ({nutrient.amount}g)
             </Text>
             <Progress value={(nutrient.amount / maxAmount) * 100} size="sm" colorScheme="green" />
-            <Progress value={(nutrient.amount / maxAmount) * 100} size="sm" colorScheme="yellow" />
+            const optimalValue = optimalProportions[nutrient.name] || 0; const maxOptimalValue = Math.max(...Object.values(optimalProportions));
+            <Progress value={(optimalValue / maxOptimalValue) * 100} size="sm" colorScheme="yellow" />
           </Box>
         ))}
       </Stack>
