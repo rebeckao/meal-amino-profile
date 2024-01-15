@@ -174,7 +174,7 @@ const Index = () => {
             ))}
           </Tbody>
         </Table>
-        import AminoAcidBarChart from '../components/AminoAcidBarChart'; // Add this import at the top with the other imports // ... rest of the component code stays the same
+        // The incorrect import statement has been removed from here.
         {foods.length > 0 && (
           <Flex width="full" justify="center" p={4}>
             <Stack>
