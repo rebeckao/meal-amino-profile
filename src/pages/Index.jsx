@@ -70,6 +70,18 @@ const Index = () => {
 
   const filteredFoods = foods;
 
+  const optimalAminoAcidsProportions = {
+    Histidine: 10,
+    Isoleucine: 10,
+    Leucine: 14,
+    Lysine: 12,
+    "Methionine plus cystine": 13,
+    "Phenylalanine plus tyrosine": 14,
+    Threonine: 7,
+    Tryptophan: 3.5,
+    Valine: 10,
+  };
+
   const essentialAminoAcids = {
     Histidine: "Histidine",
     Isoleucine: "Isoleucine",
